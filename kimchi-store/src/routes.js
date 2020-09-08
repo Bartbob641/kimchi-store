@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import App from "./App";
-import Basket from "./basket";
+import Basket from "./Views/basket";
+import Home from "./Views/Home";
 
-const BasicExample = () => {
+const Routes = () => {
   return (
     <Router>
       <div>
         <Switch>
           <Route exact path="/">
-            <App />
+            <Home />
           </Route>
           <Route exact path="/varukorg">
             <Basket />
@@ -20,4 +20,4 @@ const BasicExample = () => {
   );
 };
 
-export default BasicExample;
+export default Routes;

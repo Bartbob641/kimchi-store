@@ -2,11 +2,11 @@ import React, { createContext } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import BasicExample from "./routes";
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BasicExample />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

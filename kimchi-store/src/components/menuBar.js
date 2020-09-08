@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { Badge, Typography, Toolbar, AppBar } from "@material-ui/core";
-import useStyles from "./styles";
+import useStyles from "../styles";
 import { useHistory } from "react-router-dom";
-import AppState from "./AppState";
+import AppState from "../AppState";
 
 function MenuBar() {
+  const { state } = useContext(AppState);
   const classes = useStyles();
   const history = useHistory();
-  const [state, dispatch] = useContext(AppState);
   return (
     <AppBar className={classes.bar} position="static">
       <Toolbar>
