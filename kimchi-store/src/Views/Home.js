@@ -6,39 +6,57 @@ import { Typography, TextField } from "@material-ui/core";
 
 const Home = () => {
   const handleChange = (event) => {
-    console.log(event.target.value);
-    dispatch({ type: "newtext", payload: event.target.value });
+    console.log(event.target);
+    dispatch({
+      type: "addtocart",
+      payload: { amount: event.target.value, name: event.target.id },
+    });
   };
 
-  const { state, dispatch } = useContext(AppState);
-  const classes = useStyles();
-  return (
-    <div className={classes.main}>
-      <MenuBar />
+  const product = (i) => {
+    const handleNew = (name) => {
+      const elementIndex = state.shoppingCart.findIndex(
+        (element) => element.name === name
+      );
+      if (elementIndex === -1) {
+        return 0;
+      } else {
+        return state.shoppingCart[elementIndex].amount;
+      }
+    };
+    return (
       <div className={classes.product}>
         <Typography variant="h6" className={classes.product_title}>
-          {state.products[0].name}
+          {i.name}
         </Typography>
-        <img className={classes.image} src={state.products[0].image} />
+        <img className={classes.image} src={i.image} />
         <TextField
           className={classes.amount}
-          id="standard-basic"
+          id={i.name}
           placeholder="0"
           type="number"
-          value={state.amount}
-          onChange={(e) => handleChange(e)}
+          value={handleNew(i.name)}
+          onChange={(e) => {
+            handleChange(e);
+          }}
           variant="outlined"
           inputProps={{ className: classes.amountprops }}
         />
       </div>
+    );
+  };
 
-      {/* <Button
-      variant="outlined"
-      color="primary"
-      onClick={() => dispatch({ type: "addproduct" })}
-    >
-      Primary
-    </Button> */}
+  const { state, dispatch } = useContext(AppState);
+  const classes = useStyles();
+  console.log(state);
+  return (
+    <div className={classes.main}>
+      <MenuBar />
+      <div className={classes.productlist}>
+        {state.products.map((i) => {
+          return product(i);
+        })}
+      </div>
     </div>
   );
 };

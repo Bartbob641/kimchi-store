@@ -6,12 +6,42 @@ const reducer = (state, action) => {
       return { ...state, amount: state.amount + 1 };
     case "reducecount":
       return { ...state, amount: state.amount - 1 };
-    case "addproduct":
-      return {
-        ...state,
-        products: [...state.products, state.newProduct],
-        newProduct: "",
-      };
+    case "drawer":
+      return { ...state, drawer: !state.drawer };
+    case "addtocart":
+      let temp = state.shoppingCart;
+      const elementIndex = temp.findIndex(
+        (element) => element.name === action.payload.name
+      );
+      if (elementIndex === -1) {
+        temp = [
+          ...state.shoppingCart,
+          { name: action.payload.name, amount: action.payload.amount },
+        ];
+        const sum = temp.reduce(
+          (a, { amount }) => parseInt(a) + parseInt(amount),
+          0
+        );
+        return {
+          ...state,
+          shoppingCart: temp,
+          amount: sum,
+        };
+      } else {
+        temp[elementIndex] = {
+          ...temp[elementIndex],
+          amount: action.payload.amount,
+        };
+        const sum = temp.reduce(
+          (a, { amount }) => parseInt(a) + parseInt(amount),
+          0
+        );
+        return {
+          ...state,
+          shoppingCart: temp,
+          amount: sum,
+        };
+      }
     default:
       throw new Error();
   }

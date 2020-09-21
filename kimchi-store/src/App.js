@@ -7,7 +7,6 @@ import Routes from "./routes";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
   return (
     <AppState.Provider value={{ state, dispatch }}>
       <Routes />
